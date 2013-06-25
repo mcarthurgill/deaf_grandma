@@ -1,14 +1,18 @@
 $(document).ready(function() {
-	$('#submit_button').on("click", function notify(e) {
-		e.preventDefault(); 
+	$('#submit_button').on("click", function(event) {
+		event.preventDefault();
 		var serialized_word = $("input").serialize();
-		// console.log($("input").serialize());
-		$.ajax({
+
+
+		var request = $.ajax({
 			type: "POST",
 			url: '/grandma',
-			data: serialized_word,
-			dataType: 'string',
+			data: serialized_word
 		});
+
+    request.done(function(grandmaSays) {
+        $("#grandma_says").text(grandmaSays);
+      });
 	});
 });
 
